@@ -11,5 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByUser(User user);
 
-    Optional<Task> findByIdAdnUser(Long id, User ser);
+    Optional<Task> findByIdAndUser(Long id, User ser);
 }

@@ -32,7 +32,7 @@ public class TaskService {
 
     public Task updateTask(String userEmail, Long taskId, Task updated) {
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
-        Task task = taskRepository.findByIdAdnUser(taskId, user)
+        Task task = taskRepository.findByIdAndUser(taskId, user)
                 .orElseThrow(() -> new RuntimeException("Tarefa não encontrada ou não é sua"));
         task.setTitle(updated.getTitle());
         task.setDescription(updated.getDescription());
@@ -42,7 +42,7 @@ public class TaskService {
 
     public void deleteTask(String userEmail, Long taskId) {
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
-        Task task = taskRepository.findByIdAdnUser(taskId, user)
+        Task task = taskRepository.findByIdAndUser(taskId, user)
                 .orElseThrow(() -> new RuntimeException("Tarefa não encontrada ou não é sua"));
         taskRepository.delete(task);
     }

@@ -17,7 +17,7 @@ public class UserService {
     }
 
     public User register(String name, String email, String plaintextPassword) {
-        if (userRepository.exexistsByEmail(email)) {
+        if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("Email já em uso");
         }
         User user = User.builder()
