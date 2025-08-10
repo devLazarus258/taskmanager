@@ -8,7 +8,8 @@ import com.exemplo.taskmanager.model.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TaskRepository extends JpaRepository <Task, Long> {
-    List<Task> findByUser (User user);
+public interface TaskRepository extends JpaRepository<Task, Long> {
+    List<Task> findByUser(User user);
+
     Optional<Task> findByIdAdnUser(Long id, User ser);
 }
