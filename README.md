@@ -38,6 +38,7 @@ CREATE DATABASE taskmanager;
 ````
 2. **Configurar application.properties**
 
+```plaintext
 spring.datasource.url=jdbc:mysql://localhost:3306/taskmanager?useSSL=false&serverTimezone=UTC
 spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
@@ -46,6 +47,7 @@ spring.jpa.show-sql=true
 
 springdoc.api-docs.path=/api-docs
 springdoc.swagger-ui.path=/swagger-ui.html
+````
 
 3. **Rodar a aplicação**
 
