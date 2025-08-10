@@ -12,17 +12,23 @@ API REST para gerenciamento de usuários e tarefas, com autenticação via JWT.
 - Maven
 - Swagger (OpenAPI)
 
-## 📂 Estrutura
+## 📂 Estrutura do Backend
 
-src/main/java/com/exemplo/taskmanager/
-├── config/ # Configuração CORS e outras
-├── controller/ # Endpoints REST
-├── model/ # Entidades JPA
-├── repository/ # Interfaces JPA
-├── security/ # Configuração JWT e filtros
-├── service/ # Regras de negócio
-└── TaskManagerApplication.java
-
+```plaintext
+src/
+└── main/
+    └── java/
+        └── com/
+            └── exemplo/
+                └── taskmanager/
+                    ├── config/          # Configurações globais (ex: CORS)
+                    ├── controller/      # Controladores REST (endpoints)
+                    ├── model/           # Entidades JPA
+                    ├── repository/      # Interfaces JPA Repository
+                    ├── security/        # Configuração JWT e filtros
+                    ├── service/         # Camada de serviços / regras de negócio
+                    └── TaskManagerApplication.java
+````
 
 ## ⚙️ Configuração
 
