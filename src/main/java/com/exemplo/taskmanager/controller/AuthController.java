@@ -1,7 +1,6 @@
 package com.exemplo.taskmanager.controller;
 
 import com.exemplo.taskmanager.dto.*;
-import com.exemplo.taskmanager.model.User;
 import com.exemplo.taskmanager.repository.UserRepository;
 import com.exemplo.taskmanager.security.JwtProvider;
 import com.exemplo.taskmanager.service.UserService;
@@ -34,7 +33,7 @@ public class AuthController {
         if (userRepository.existsByEmail(request.getEmail())) {
             return ResponseEntity.badRequest().body("Email já está em uso");
         }
-        User user = userService.register(request.getName(), request.getEmail(), request.getPassword());
+        userService.register(request.getName(), request.getEmail(), request.getPassword());
         return ResponseEntity.ok("Usuário registado com sucesso");
     }
 
