@@ -1,6 +1,7 @@
 package com.exemplo.taskmanager.controller;
 
-import com.exemplo.taskmanager.dto.*;
+import com.exemplo.taskmanager.dto.TaskRequestDTO;
+import com.exemplo.taskmanager.dto.TaskResponseDTO;
 import com.exemplo.taskmanager.model.Task;
 import com.exemplo.taskmanager.service.TaskService;
 import jakarta.validation.Valid;
@@ -23,21 +24,19 @@ public class TaskController {
     @GetMapping
     public List<TaskResponseDTO> getTasks(Authentication authentication) {
         String email = authentication.getName();
-        return service.getTasksForUser(email).stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
+        List<Task> tasks = service.getTasksForUser(email);
+        return tasks.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @PostMapping
-    public TaskResponseDTO createTask(Authentication authentication,
-            @Valid @RequestBody TaskRequestDTO dto) {
+    public TaskResponseDTO createTask(Authentication authentication, @Valid @RequestBody TaskRequestDTO dto) {
         String email = authentication.getName();
-        Task t = Task.builder()
+        Task task = Task.builder()
                 .title(dto.getTitle())
                 .description(dto.getDescription())
                 .completed(dto.isCompleted())
                 .build();
-        Task saved = service.createTask(email, t);
+        Task saved = service.createTask(email, task);
         return toDto(saved);
     }
 
@@ -46,13 +45,13 @@ public class TaskController {
             @PathVariable Long id,
             @Valid @RequestBody TaskRequestDTO dto) {
         String email = authentication.getName();
-        Task updated = Task.builder()
+        Task taskUpdates = Task.builder()
                 .title(dto.getTitle())
                 .description(dto.getDescription())
                 .completed(dto.isCompleted())
                 .build();
-        Task saved = service.updateTask(email, id, updated);
-        return toDto(saved);
+        Task updated = service.updateTask(email, id, taskUpdates);
+        return toDto(updated);
     }
 
     @DeleteMapping("/{id}")
@@ -61,7 +60,13 @@ public class TaskController {
         service.deleteTask(email, id);
     }
 
-    private TaskResponseDTO toDto(Task t) {
-        return new TaskResponseDTO(t.getId(), t.getTitle(), t.getDescription(), t.isCompleted());
+    private TaskResponseDTO toDto(Task task) {
+        return TaskResponseDTO.builder()
+                .id(task.getId())
+                .title(task.getTitle())
+                .description(task.getDescription())
+                .completed(task.isCompleted())
+                .userEmail(task.getUser() != null ? task.getUser().getEmail() : null)
+                .build();
     }
 }
