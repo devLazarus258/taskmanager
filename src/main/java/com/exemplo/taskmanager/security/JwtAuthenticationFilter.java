@@ -38,6 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
+        // ...existing code...
         String header = request.getHeader("Authorization");
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
@@ -49,16 +50,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             userDetails, null, userDetails.getAuthorities());
                     auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(auth);
+                } else {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token inválido");
+                    return;
                 }
             } catch (Exception ex) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token inválido");
                 return;
             }
-        } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token não fornecido");
-            return;
         }
-
+        // Não bloqueie se não houver token
         filterChain.doFilter(request, response);
+        // ...existing code...
     }
 }
