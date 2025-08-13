@@ -1,11 +1,13 @@
 package com.exemplo.taskmanager.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+
+import java.util.Date; // ou Instant se preferir
 
 @Getter
+@Setter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class TaskResponseDTO {
     private Long id;
@@ -13,4 +15,5 @@ public class TaskResponseDTO {
     private String description;
     private boolean completed;
     private String userEmail;
+    private Date createdAt;  // ou Instant
 }
