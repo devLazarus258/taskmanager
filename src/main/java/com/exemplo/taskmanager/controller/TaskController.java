@@ -67,6 +67,7 @@ public class TaskController {
                 .description(task.getDescription())
                 .completed(task.isCompleted())
                 .userEmail(task.getUser() != null ? task.getUser().getEmail() : null)
+                .createdAt(task.getCreatedAt()) 
                 .build();
     }
 }
